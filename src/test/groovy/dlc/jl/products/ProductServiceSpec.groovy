@@ -27,10 +27,13 @@ class ProductServiceSpec extends Specification {
 
         then: "it should return a list of products"
         result.size() == 3
-        result[0].productId == "TEST-01"
-        result[0].title == "Test One Product"
 
         and: "it should only contain those with price reductions"
         !result.any { it.priceReduction <= 0 }
+
+        and: "it should be sorted to show the highest price reduction first"
+        result[0].priceReduction == new BigDecimal(30)
+        result[1].priceReduction == new BigDecimal(20)
+        result[2].priceReduction == new BigDecimal(10)
     }
 }

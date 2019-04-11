@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +24,10 @@ public class ProductService {
 
         List<Product> products = productResource.getProducts();
 
-        products = products.stream().filter(p->p.getPriceReduction().compareTo(BigDecimal.ZERO) > 0).collect(Collectors.toList());
+        products = products.stream()
+                .filter(p->p.getPriceReduction().compareTo(BigDecimal.ZERO) > 0)
+                .sorted(Comparator.comparing(Product::getPriceReduction).reversed())
+                .collect(Collectors.toList());
 
         return products;
     }
