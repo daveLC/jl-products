@@ -1,6 +1,7 @@
 package dlc.jl.products
 
 import groovy.json.JsonSlurper
+import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -11,14 +12,23 @@ import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
-@AutoConfigureMockMvc
 @WebMvcTest
+@AutoConfigureMockMvc
 class ProductControllerSpec extends Specification {
 
     @Autowired
     private MockMvc mvc
 
+    @SpringBean
+    ProductService productService = Mock()
+
     def "when performing a GET on the '/products' endpoint the response has status 200 and the response contains products"() {
+
+        given: "the product service returns a list of Products"
+        productService.getProducts() >> {
+            Product product = new Product("TEST-ID");
+            [product] as List<Product>
+        }
 
         when: "performing a GET on the '/products' endpoint"
         def response = mvc.perform(get('/products').contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn().response
@@ -33,4 +43,5 @@ class ProductControllerSpec extends Specification {
             product instanceof Product
         }
     }
+
 }
