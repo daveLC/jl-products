@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'org.springframework.boot' version '2.1.3.RELEASE'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'io.spring.dependency-management'
+
+group 'dlc.jl'
+version '0.1'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-dependencies:2.1.3.RELEASE'
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-devtools'
+    compile 'org.springframework.boot:spring-boot-starter-actuator'
+
+    testCompile 'org.codehaus.groovy:groovy-all:2.5.6'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.spockframework:spock-spring:1.2-groovy-2.5'
+    
+}
+
+springBoot {
+    mainClassName = "dlc.jl.Application"
+}
+
+/*bootRun {
+    sourceResources sourceSets.main
+    sourceResources sourceSets.resources
+}*/
+
+processResources {
+    filesMatching('application.yaml') {
+        expand(project.properties)
+    }
+}

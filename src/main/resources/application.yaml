@@ -1,0 +1,44 @@
+spring.profiles.active: log-debug
+
+info:
+  app:
+    name: ${name}
+    version: ${version}
+
+server:
+  port: 8080
+
+logging.file: logs/jl-products.log
+logging:
+    max-size: 5MB
+    max-history: 5
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health, mappings, logfile
+      base-path: /monitor
+  endpoint:
+    health:
+      show-details: always
+
+---
+
+spring:
+  profiles: log-info
+logging:
+  level:
+    root: warn
+    org.springframework: warn
+    app.tapme: info
+
+---
+
+spring:
+  profiles: log-debug
+logging:
+  level:
+    root: info
+    org.springframework: info
+    app.tapme: debug
