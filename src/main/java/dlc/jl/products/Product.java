@@ -1,7 +1,10 @@
 package dlc.jl.products;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.math.BigDecimal;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
 
     private String productId;
@@ -23,24 +26,38 @@ public class Product {
         this.price = price;
     }
 
+
+    public BigDecimal getPriceReduction() {
+
+        if (this.getPrice() == null || this.getPrice().getWas() == null || this.getPrice().getNow() == null) {
+            return BigDecimal.ZERO;
+        }
+
+        return this.getPrice().getWas().subtract(this.getPrice().getNow());
+    }
+
     public String getProductId() {
         return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getTitle() {
         return title;
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public Price getPrice() {
         return price;
     }
 
-    public BigDecimal getPriceReduction() {
-
-        if (this.getPrice() == null || this.getPrice().was == null || this.getPrice().now == null) {
-            return BigDecimal.ZERO;
-        }
-
-        return this.getPrice().was.subtract(this.getPrice().now);
+    public void setPrice(Price price) {
+        this.price = price;
     }
+
 }
