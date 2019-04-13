@@ -20,7 +20,7 @@ import java.util.Optional;
 
 @Component
 @ConditionalOnProperty(
-        name = "feature.toggles.productsFromWebService",
+        name = "feature.toggles.productsFromApi",
         havingValue = "false",
         matchIfMissing = false
 )

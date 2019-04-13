@@ -1,4 +1,4 @@
-spring.profiles.active: log-debug, products-from-file
+spring.profiles.active: log-debug, products-from-api
 
 info:
   app:
@@ -29,7 +29,7 @@ spring:
   profiles: products-from-file
 feature:
   toggles:
-    productsFromWebService: false
+    productsFromApi: false
 products:
   resource:
     filename: data/actual-products.json
@@ -40,7 +40,7 @@ spring:
   profiles: products-from-api
 feature:
   toggles:
-    productsFromWebService: true
+    productsFromApi: true
 products:
   resource:
     url: "https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma"
