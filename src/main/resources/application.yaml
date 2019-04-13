@@ -1,4 +1,4 @@
-spring.profiles.active: log-debug
+spring.profiles.active: log-debug, products-from-file
 
 info:
   app:
@@ -23,9 +23,27 @@ management:
     health:
       show-details: always
 
+---
+
+spring:
+  profiles: products-from-file
+feature:
+  toggles:
+    productsFromWebService: false
 products:
   resource:
     filename: data/actual-products.json
+
+---
+
+spring:
+  profiles: products-from-api
+feature:
+  toggles:
+    productsFromWebService: true
+products:
+  resource:
+    url: "https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma"
 
 ---
 
@@ -45,4 +63,4 @@ logging:
   level:
     root: info
     org.springframework: info
-    app.tapme: debug
+    dlc.jl: debug
