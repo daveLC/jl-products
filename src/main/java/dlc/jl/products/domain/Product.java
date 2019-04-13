@@ -16,6 +16,7 @@ public class Product {
 
     private String productId;
     private String title;
+    private String priceLabel;
     private Price price;
     private List<ColorSwatch> colorSwatches;
 
@@ -96,6 +97,18 @@ public class Product {
         else {
             DecimalFormat df = new DecimalFormat("£0.00");
             return df.format(price);
+        }
+    }
+
+    public void determinePriceLabel(PriceLabelType priceLabelType) {
+        if (priceLabelType == PriceLabelType.ShowWasNowThen) {
+            this.setPriceLabel(this.getShowWasThenNow());
+        }
+        else if (priceLabelType == PriceLabelType.ShowPercDscount) {
+            this.setPriceLabel(this.getShowPercDscount());
+        }
+        else {
+            this.setPriceLabel(this.getShowWasNow());
         }
     }
 }

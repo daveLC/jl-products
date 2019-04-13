@@ -1,5 +1,6 @@
 package dlc.jl.products;
 
+import dlc.jl.products.domain.PriceLabelType;
 import dlc.jl.products.domain.Product;
 import dlc.jl.products.resource.ProductResource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,10 @@ public class ProductService {
     }
 
     public List<Product> getProducts() {
+        return getProducts(PriceLabelType.ShowWasNow);
+    }
+
+    public List<Product> getProducts(PriceLabelType priceLabelType) {
 
         List<Product> products = productResource.getProducts();
 
@@ -29,6 +34,8 @@ public class ProductService {
                 .filter(p->p.getPriceReduction().compareTo(BigDecimal.ZERO) > 0)
                 .sorted(Comparator.comparing(Product::getPriceReduction).reversed())
                 .collect(Collectors.toList());
+
+        products.forEach(p -> p.determinePriceLabel(priceLabelType));
 
         return products;
     }
