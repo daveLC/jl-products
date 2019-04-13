@@ -1,6 +1,6 @@
 package dlc.jl.products.resource;
 
-import dlc.jl.products.Product;
+import dlc.jl.products.domain.Product;
 
 import java.util.List;
 

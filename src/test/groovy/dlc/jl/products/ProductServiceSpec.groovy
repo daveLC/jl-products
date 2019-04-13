@@ -1,5 +1,7 @@
 package dlc.jl.products
 
+import dlc.jl.products.domain.Price
+import dlc.jl.products.domain.Product
 import dlc.jl.products.resource.ProductResource
 import spock.lang.Specification
 

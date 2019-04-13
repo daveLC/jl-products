@@ -1,5 +1,6 @@
 package dlc.jl.products
 
+import dlc.jl.products.domain.Product
 import groovy.json.JsonSlurper
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired

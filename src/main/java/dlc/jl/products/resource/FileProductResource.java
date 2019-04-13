@@ -2,7 +2,7 @@ package dlc.jl.products.resource;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dlc.jl.products.Product;
+import dlc.jl.products.domain.Product;
 import dlc.jl.products.json.ProductResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package dlc.jl.products.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import dlc.jl.products.Product;
+import dlc.jl.products.domain.Product;
 
 import java.util.List;
 

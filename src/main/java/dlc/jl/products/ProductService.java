@@ -1,5 +1,6 @@
 package dlc.jl.products;
 
+import dlc.jl.products.domain.Product;
 import dlc.jl.products.resource.ProductResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
