@@ -13,16 +13,12 @@ public class ColorSwatch {
     private String color;
 
     private String basicColor;
-
-    private String rgbColor;
-
+    
     @JsonProperty("skuId")
     private String skuid;
 
-    @JsonProperty("basicColor")
-    private void calculateRgbColor(String basicColor) {
-        setBasicColor(basicColor);
-        setRgbColor(RgbReference.lookupRgbCode(basicColor));
+    public String getRgbColor() {
+        return RgbReference.lookupRgbCode(this.getBasicColor());
     }
 
 }
