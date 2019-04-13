@@ -40,6 +40,33 @@ class ProductServiceSpec extends Specification {
         result[2].getPriceReduction() == new BigDecimal(10)
     }
 
+    def "retrieving a list of products should contain the 'nowPrice' string"() {
+
+        given: "a list of products"
+        def products = [
+                Product.builder().productId("TEST-01").title("Test One Product")
+                        .price(new Price(new BigDecimal(40), new BigDecimal(20.00))).build(),
+                Product.builder().productId("TEST-02").title("Test Two Product")
+                        .price(new Price(new BigDecimal(40), new BigDecimal(5.00))).build(),
+                Product.builder().productId("TEST-03").title("Test Free Product")
+                        .price(new Price(new BigDecimal(40), BigDecimal.ZERO)).build(),
+        ]
+
+        and: "a test product resource"
+        ProductResource testProductResource = { -> products }
+
+        and: "the product service"
+        ProductService productService = new ProductService(testProductResource)
+
+        when: "retrieving them"
+        def result = productService.getProducts()
+
+        then: "the results should contain the nowPrice"
+        result[0].nowPrice == "£0.00"
+        result[1].nowPrice == "£5.00"
+        result[2].nowPrice == "£20"
+    }
+
     def "retrieving products, each should contain an array of colorSwatches"() {
 
         given: "the products are read using the FileProductResource"

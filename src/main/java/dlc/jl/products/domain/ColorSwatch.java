@@ -13,7 +13,7 @@ public class ColorSwatch {
     private String color;
 
     private String basicColor;
-    
+
     @JsonProperty("skuId")
     private String skuid;
 

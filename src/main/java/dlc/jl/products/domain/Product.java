@@ -5,7 +5,10 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 @Data
 @Builder
@@ -26,4 +29,19 @@ public class Product {
         return this.getPrice().getWas().subtract(this.getPrice().getNow());
     }
 
+    public String getNowPrice() {
+
+        if (this.getPrice() == null || this.getPrice().getNow() == null) {
+            return "";
+        }
+
+        if (price.getNow().compareTo(BigDecimal.TEN) > 0) {
+            DecimalFormat df = new DecimalFormat("£###.##");
+            return df.format(price.getNow());
+        }
+        else {
+            DecimalFormat df = new DecimalFormat("£0.00");
+            return df.format(price.getNow());
+        }
+    }
 }
