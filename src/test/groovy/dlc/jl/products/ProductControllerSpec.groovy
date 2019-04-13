@@ -27,7 +27,7 @@ class ProductControllerSpec extends Specification {
 
         given: "the product service returns a list of Products"
         productService.getProducts() >> {
-            Product product = new Product("TEST-ID", "Test Product");
+            Product product = Product.builder().productId("TEST-ID").title("Test Product").build();
             [product] as List<Product>
         }
 

@@ -2,9 +2,10 @@ package dlc.jl.products
 
 import dlc.jl.products.domain.Price
 import dlc.jl.products.domain.Product
+import dlc.jl.products.json.ProductResponse
+import dlc.jl.products.resource.FileProductResource
 import dlc.jl.products.resource.ProductResource
 import spock.lang.Specification
-
 
 class ProductServiceSpec extends Specification {
 
@@ -12,10 +13,10 @@ class ProductServiceSpec extends Specification {
 
         given: "a list of products"
         def products = [
-                new Product("TEST-01", "Test One Product", new Price(new BigDecimal(40), new BigDecimal(20))),
-                new Product("TEST-02", "Test Two Product", new Price(null, new BigDecimal(20))),
-                new Product("TEST-03", "Test Three Product", new Price(new BigDecimal(40), new BigDecimal(10))),
-                new Product("TEST-04", "Test Four Product", new Price(new BigDecimal(40), new BigDecimal(30)))
+                Product.builder().productId("TEST-01").title("Test One Product").price(new Price(new BigDecimal(40), new BigDecimal(20))).build(),
+                Product.builder().productId("TEST-02").title("Test Two Product").price(new Price(null, new BigDecimal(20))).build(),
+                Product.builder().productId("TEST-03").title("Test Three Product").price(new Price(new BigDecimal(40), new BigDecimal(10))).build(),
+                Product.builder().productId("TEST-04").title("Test Four Product").price(new Price(new BigDecimal(40), new BigDecimal(30))).build(),
         ]
 
         and: "a test product resource"
@@ -31,11 +32,28 @@ class ProductServiceSpec extends Specification {
         result.size() == 3
 
         and: "it should only contain those with price reductions"
-        !result.any { it.priceReduction <= 0 }
+        !result.any { it.getPriceReduction() <= 0 }
 
         and: "it should be sorted to show the highest price reduction first"
-        result[0].priceReduction == new BigDecimal(30)
-        result[1].priceReduction == new BigDecimal(20)
-        result[2].priceReduction == new BigDecimal(10)
+        result[0].getPriceReduction() == new BigDecimal(30)
+        result[1].getPriceReduction() == new BigDecimal(20)
+        result[2].getPriceReduction() == new BigDecimal(10)
+    }
+
+    def "retrieving products, each should contain an array of colorSwatches"() {
+
+        given: "the products are read using the FileProductResource"
+        ProductResource fileProductResource = new FileProductResource("data/actual-products.json")
+
+        and: "the product service"
+        ProductService productService = new ProductService(fileProductResource)
+
+        when: "retrieving the products"
+        def result = productService.getProducts()
+
+        then: "each should contain a colorSwatch element"
+        result.each { Product p ->
+            p.getColorSwatches() != null
+        }
     }
 }
