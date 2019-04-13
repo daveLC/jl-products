@@ -1,8 +1,8 @@
 package dlc.jl.products
 
+import dlc.jl.products.domain.ColorSwatch
 import dlc.jl.products.domain.Price
 import dlc.jl.products.domain.Product
-import dlc.jl.products.json.ProductResponse
 import dlc.jl.products.resource.FileProductResource
 import dlc.jl.products.resource.ProductResource
 import spock.lang.Specification
@@ -43,7 +43,7 @@ class ProductServiceSpec extends Specification {
     def "retrieving products, each should contain an array of colorSwatches"() {
 
         given: "the products are read using the FileProductResource"
-        ProductResource fileProductResource = new FileProductResource("data/actual-products.json")
+        ProductResource fileProductResource = new FileProductResource("data/test-swatches.json")
 
         and: "the product service"
         ProductService productService = new ProductService(fileProductResource)
@@ -55,5 +55,15 @@ class ProductServiceSpec extends Specification {
         result.each { Product p ->
             p.getColorSwatches() != null
         }
+
+        and: "where appropriate, the swatch should have a color and skuid"
+        result[0].getColorSwatches().each { ColorSwatch cs ->
+            cs.color != null
+            cs.skuid != null
+        }
+
+        and: "where appropriate, the swatch should have the correct rgbColor"
+        result[0].getColorSwatches()[0].rgbColor == "0000FF"
+        result[0].getColorSwatches()[1].rgbColor == "FFFF00"
     }
 }

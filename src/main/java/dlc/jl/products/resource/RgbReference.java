@@ -1,0 +1,173 @@
+package dlc.jl.products.resource;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+
+public class RgbReference {
+
+    private static final Map<String, String> map;
+
+    public static String lookupRgbCode(String color) {
+        if (color == null) {
+            return "";
+        }
+        else {
+            return Optional.ofNullable(map.get(color.toLowerCase().trim())).orElse("")
+                    .replace("#", "")
+                    .toUpperCase();
+        }
+    }
+
+    static {
+        map = new HashMap<>();
+        map.put("aliceblue", "#f0f8ff");
+        map.put("antiquewhite", "#faebd7");
+        map.put("aqua", "#00ffff");
+        map.put("aquamarine", "#7fffd4");
+        map.put("azure", "#f0ffff");
+        map.put("beige", "#f5f5dc");
+        map.put("bisque", "#ffe4c4");
+        map.put("black", "#000000");
+        map.put("blanchedalmond", "#ffebcd");
+        map.put("blue", "#0000ff");
+        map.put("blueviolet", "#8a2be2");
+        map.put("brown", "#a52a2a");
+        map.put("burlywood", "#deb887");
+        map.put("cadetblue", "#5f9ea0");
+        map.put("chartreuse", "#7fff00");
+        map.put("chocolate", "#d2691e");
+        map.put("coral", "#ff7f50");
+        map.put("cornflowerblue", "#6495ed");
+        map.put("cornsilk", "#fff8dc");
+        map.put("crimson", "#dc143c");
+        map.put("cyan", "#00ffff");
+        map.put("darkblue", "#00008b");
+        map.put("darkcyan", "#008b8b");
+        map.put("darkgoldenrod", "#b8860b");
+        map.put("darkgray", "#a9a9a9");
+        map.put("darkgreen", "#006400");
+        map.put("darkgrey", "#a9a9a9");
+        map.put("darkkhaki", "#bdb76b");
+        map.put("darkmagenta", "#8b008b");
+        map.put("darkolivegreen", "#556b2f");
+        map.put("darkorange", "#ff8c00");
+        map.put("darkorchid", "#9932cc");
+        map.put("darkred", "#8b0000");
+        map.put("darksalmon", "#e9967a");
+        map.put("darkseagreen", "#8fbc8f");
+        map.put("darkslateblue", "#483d8b");
+        map.put("darkslategray", "#2f4f4f");
+        map.put("darkslategrey", "#2f4f4f");
+        map.put("darkturquoise", "#00ced1");
+        map.put("darkviolet", "#9400d3");
+        map.put("deeppink", "#ff1493");
+        map.put("deepskyblue", "#00bfff");
+        map.put("dimgray", "#696969");
+        map.put("dimgrey", "#696969");
+        map.put("dodgerblue", "#1e90ff");
+        map.put("firebrick", "#b22222");
+        map.put("floralwhite", "#fffaf0");
+        map.put("forestgreen", "#228b22");
+        map.put("fuchsia", "#ff00ff");
+        map.put("gainsboro", "#dcdcdc");
+        map.put("ghostwhite", "#f8f8ff");
+        map.put("goldenrod", "#daa520");
+        map.put("gold", "#ffd700");
+        map.put("gray", "#808080");
+        map.put("green", "#008000");
+        map.put("greenyellow", "#adff2f");
+        map.put("grey", "#808080");
+        map.put("honeydew", "#f0fff0");
+        map.put("hotpink", "#ff69b4");
+        map.put("indianred", "#cd5c5c");
+        map.put("indigo", "#4b0082");
+        map.put("ivory", "#fffff0");
+        map.put("khaki", "#f0e68c");
+        map.put("lavenderblush", "#fff0f5");
+        map.put("lavender", "#e6e6fa");
+        map.put("lawngreen", "#7cfc00");
+        map.put("lemonchiffon", "#fffacd");
+        map.put("lightblue", "#add8e6");
+        map.put("lightcoral", "#f08080");
+        map.put("lightcyan", "#e0ffff");
+        map.put("lightgoldenrodyellow", "#fafad2");
+        map.put("lightgray", "#d3d3d3");
+        map.put("lightgreen", "#90ee90");
+        map.put("lightgrey", "#d3d3d3");
+        map.put("lightpink", "#ffb6c1");
+        map.put("lightsalmon", "#ffa07a");
+        map.put("lightseagreen", "#20b2aa");
+        map.put("lightskyblue", "#87cefa");
+        map.put("lightslategray", "#778899");
+        map.put("lightslategrey", "#778899");
+        map.put("lightsteelblue", "#b0c4de");
+        map.put("lightyellow", "#ffffe0");
+        map.put("lime", "#00ff00");
+        map.put("limegreen", "#32cd32");
+        map.put("linen", "#faf0e6");
+        map.put("magenta", "#ff00ff");
+        map.put("maroon", "#800000");
+        map.put("mediumaquamarine", "#66cdaa");
+        map.put("mediumblue", "#0000cd");
+        map.put("mediumorchid", "#ba55d3");
+        map.put("mediumpurple", "#9370db");
+        map.put("mediumseagreen", "#3cb371");
+        map.put("mediumslateblue", "#7b68ee");
+        map.put("mediumspringgreen", "#00fa9a");
+        map.put("mediumturquoise", "#48d1cc");
+        map.put("mediumvioletred", "#c71585");
+        map.put("midnightblue", "#191970");
+        map.put("mintcream", "#f5fffa");
+        map.put("mistyrose", "#ffe4e1");
+        map.put("moccasin", "#ffe4b5");
+        map.put("navajowhite", "#ffdead");
+        map.put("navy", "#000080");
+        map.put("oldlace", "#fdf5e6");
+        map.put("olive", "#808000");
+        map.put("olivedrab", "#6b8e23");
+        map.put("orange", "#ffa500");
+        map.put("orangered", "#ff4500");
+        map.put("orchid", "#da70d6");
+        map.put("palegoldenrod", "#eee8aa");
+        map.put("palegreen", "#98fb98");
+        map.put("paleturquoise", "#afeeee");
+        map.put("palevioletred", "#db7093");
+        map.put("papayawhip", "#ffefd5");
+        map.put("peachpuff", "#ffdab9");
+        map.put("peru", "#cd853f");
+        map.put("pink", "#ffc0cb");
+        map.put("plum", "#dda0dd");
+        map.put("powderblue", "#b0e0e6");
+        map.put("purple", "#800080");
+        map.put("rebeccapurple", "#663399");
+        map.put("red", "#ff0000");
+        map.put("rosybrown", "#bc8f8f");
+        map.put("royalblue", "#4169e1");
+        map.put("saddlebrown", "#8b4513");
+        map.put("salmon", "#fa8072");
+        map.put("sandybrown", "#f4a460");
+        map.put("seagreen", "#2e8b57");
+        map.put("seashell", "#fff5ee");
+        map.put("sienna", "#a0522d");
+        map.put("silver", "#c0c0c0");
+        map.put("skyblue", "#87ceeb");
+        map.put("slateblue", "#6a5acd");
+        map.put("slategray", "#708090");
+        map.put("slategrey", "#708090");
+        map.put("snow", "#fffafa");
+        map.put("springgreen", "#00ff7f");
+        map.put("steelblue", "#4682b4");
+        map.put("tan", "#d2b48c");
+        map.put("teal", "#008080");
+        map.put("thistle", "#d8bfd8");
+        map.put("tomato", "#ff6347");
+        map.put("turquoise", "#40e0d0");
+        map.put("violet", "#ee82ee");
+        map.put("wheat", "#f5deb3");
+        map.put("white", "#ffffff");
+        map.put("whitesmoke", "#f5f5f5");
+        map.put("yellow", "#ffff00");
+        map.put("yellowgreen", "#9acd32");
+    }
+}
