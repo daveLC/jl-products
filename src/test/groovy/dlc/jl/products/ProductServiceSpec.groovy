@@ -93,4 +93,31 @@ class ProductServiceSpec extends Specification {
         result[0].getColorSwatches()[0].rgbColor == "0000FF"
         result[0].getColorSwatches()[1].rgbColor == "FFFF00"
     }
+
+    def "retrieving products, check price label values"() {
+
+        given: "the products are read using the FileProductResource"
+        ProductResource fileProductResource = new FileProductResource("data/test-price-label.json")
+
+        and: "the product service"
+        ProductService productService = new ProductService(fileProductResource)
+
+        when: "retrieving the products"
+        def result = productService.getProducts()
+
+        then: "the ShowWasNow price is as expected"
+        result[0].showWasNow == "Was £90, now £3.00"
+        result[1].showWasNow == "Was £90, now £40"
+        result[2].showWasNow == "Was £90, now £50"
+
+        and: "the ShowWasThenNow is as expected"
+        result[0].showWasThenNow == "Was £90, then £40, now £3.00"
+        result[1].showWasThenNow == "Was £90, then £50, now £40"
+        result[2].showWasThenNow == "Was £90, now £50"
+
+        and: "the ShowPercDscount is as expected"
+        result[0].showPercDscount == "97% off - now £3.00"
+        result[1].showPercDscount == "56% off - now £40"
+        result[2].showPercDscount == "44% off - now £50"
+    }
 }

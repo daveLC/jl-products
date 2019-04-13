@@ -14,6 +14,8 @@ public class Price {
 
     private BigDecimal was;
     private BigDecimal now;
+    private BigDecimal then1;
+    private BigDecimal then2;
 
     public Price() {}
 
@@ -43,5 +45,21 @@ public class Price {
 
     public void setNow(BigDecimal now) {
         this.now = now;
+    }
+
+    public BigDecimal getThen1() {
+        return then1;
+    }
+
+    public void setThen1(BigDecimal then1) {
+        this.then1 = then1;
+    }
+
+    public BigDecimal getThen2() {
+        return then2;
+    }
+
+    public void setThen2(BigDecimal then2) {
+        this.then2 = then2;
     }
 }

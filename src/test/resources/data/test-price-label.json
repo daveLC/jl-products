@@ -1,0 +1,40 @@
+{
+  "products": [
+    {
+      "productId": "3459039",
+      "title": "Then Two",
+      "price": {
+        "was": "90.00",
+        "then1": "60.00",
+        "then2": "40.00",
+        "now": "3.00",
+        "currency": "GBP"
+      },
+      "colorSwatches": []
+    },
+    {
+      "productId": "2",
+      "title": "Then One",
+      "price": {
+        "was": "90.00",
+        "then1": "50.00",
+        "then2": "",
+        "now": "40.00",
+        "currency": "GBP"
+      },
+      "colorSwatches": []
+    },
+    {
+      "productId": "3",
+      "title": "No then",
+      "price": {
+        "was": "90.00",
+        "then1": "",
+        "then2": "",
+        "now": "50.00",
+        "currency": "GBP"
+      },
+      "colorSwatches": []
+    }
+  ]
+}
