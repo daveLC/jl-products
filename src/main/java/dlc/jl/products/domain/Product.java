@@ -1,6 +1,8 @@
 package dlc.jl.products.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonView;
+import dlc.jl.products.json.Views;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,10 +16,18 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Product {
 
+    @JsonView(Views.Basic.class)
     private String productId;
+
+    @JsonView(Views.Basic.class)
     private String title;
+
+    @JsonView(Views.Basic.class)
     private String priceLabel;
+
     private Price price;
+
+    @JsonView(Views.Basic.class)
     private List<ColorSwatch> colorSwatches;
 
     public BigDecimal getPriceReduction() {
@@ -29,6 +39,7 @@ public class Product {
         return this.getPrice().getWas().subtract(this.getPrice().getNow());
     }
 
+    @JsonView(Views.Basic.class)
     public String getNowPrice() {
 
         if (this.getPrice() == null || this.getPrice().getNow() == null) {
