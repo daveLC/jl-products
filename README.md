@@ -12,9 +12,13 @@
 
 This application contains a single endpoint for retriveing JL products that have price reductions applied to them.
 
-To run the app:
+To run the app, in the root project directory:
 
     > ./gradlew bootRun
+
+NOTE: As an alternative, run the following:
+
+    > java -jar dist/jl-products-0.1.jar
 
 Then browse to the following endpoint for the products:
 
