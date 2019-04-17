@@ -9,6 +9,7 @@ apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'idea'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
 
 group 'dlc.jl'
 version '0.1'
@@ -39,10 +40,12 @@ springBoot {
     mainClassName = "dlc.jl.Application"
 }
 
-/*bootRun {
-    sourceResources sourceSets.main
-    sourceResources sourceSets.resources
-}*/
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+    }
+}
 
 processResources {
     filesMatching('application.yaml') {
