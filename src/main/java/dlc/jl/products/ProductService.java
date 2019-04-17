@@ -21,13 +21,13 @@ public class ProductService {
         this.productResource = productResource;
     }
 
-    public List<Product> getProducts() {
-        return getProducts(PriceLabelType.ShowWasNow);
+    public List<Product> getProducts(String categoryId) {
+        return getProducts(categoryId, PriceLabelType.ShowWasNow);
     }
 
-    public List<Product> getProducts(PriceLabelType priceLabelType) {
+    public List<Product> getProducts(String categoryId, PriceLabelType priceLabelType) {
 
-        List<Product> products = productResource.getProducts();
+        List<Product> products = productResource.getProducts(categoryId);
 
         products = products.stream()
                 .filter(p->p.getPriceReduction().compareTo(BigDecimal.ZERO) > 0)

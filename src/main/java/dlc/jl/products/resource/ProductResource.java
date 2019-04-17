@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ProductResource {
 
-    List<Product> getProducts();
+    List<Product> getProducts(String categoryId);
 }

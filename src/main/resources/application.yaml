@@ -43,7 +43,7 @@ feature:
     productsFromApi: true
 products:
   resource:
-    url: "https://jl-nonprod-syst.apigee.net/v1/categories/600001506/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma"
+    url: "https://jl-nonprod-syst.apigee.net/v1/categories/CATEGORY_ID/products?key=2ALHCAAs6ikGRBoy6eTHA58RaG097Fma"
 
 ---
 

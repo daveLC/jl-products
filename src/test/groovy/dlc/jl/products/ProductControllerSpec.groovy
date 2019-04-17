@@ -25,16 +25,16 @@ class ProductControllerSpec extends Specification {
     @SpringBean
     ProductService productService = Mock()
 
-    def "when performing a GET on the '/products' endpoint the response has status 200 and the response contains products"() {
+    def "when performing a GET on the '/catelog' endpoint the response has status 200 and the response contains products"() {
 
         given: "the product service returns a list of Products"
-        productService.getProducts(_) >> {
+        productService.getProducts("0001") >> {
             Product product = Product.builder().productId("TEST-ID").title("Test Product").build();
             [product] as List<Product>
         }
 
-        when: "performing a GET on the '/products' endpoint"
-        def response = mvc.perform(get('/products').contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn().response
+        when: "performing a GET on the '/catelog' endpoint"
+        def response = mvc.perform(get('/catelog/0001/products/discount/prices').contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn().response
         def json = new JsonSlurper().parseText(response.contentAsString)
 
         then: "the response has status 200"
@@ -47,25 +47,27 @@ class ProductControllerSpec extends Specification {
         }
     }
 
-    def "when calling the '/products' endpoint with the labelType=ShowWasNow, the ShowWasNow property should exist"() {
+    def "when calling the '/catelog' endpoint with the labelType=ShowWasNowThen, the priceLabel property should exist"() {
 
         given: "the product service returns a list of Products"
-        productService.getProducts(PriceLabelType.ShowWasNow) >> {
+        productService.getProducts("0001", PriceLabelType.ShowWasNowThen) >> {
             Product product = Product.builder()
                     .productId("TEST-ID")
                     .title("Test Product")
-                    .price(new Price(new BigDecimal(20), new BigDecimal(10)))
-                    .priceLabel("Was £20, now £10")
+                    .price(new Price(new BigDecimal(20), new BigDecimal(5), new BigDecimal(10), new BigDecimal(10) ))
+                    .priceLabel("Was £20, then £10, now £5.00")
                     .build();
             [product] as List<Product>
         }
 
-        when: "performing a GET on the '/products' endpoint"
-        def response = mvc.perform(get('/products').contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn().response
+        when: "performing a GET on the '/catelog' endpoint"
+        def response = mvc.perform(get('/catelog/0001/products/discount/prices/ShowWasNowThen')
+                .param("labelType", "ShowWasNowThen")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)).andReturn().response
         def json = new JsonSlurper().parseText(response.contentAsString)
 
         then: "the response has status 200"
-        json[0].priceLabel == "Was £20, now £10"
+        json[0].priceLabel == "Was £20, then £10, now £5.00"
     }
 
 }

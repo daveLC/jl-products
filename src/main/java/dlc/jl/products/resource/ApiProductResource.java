@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
@@ -25,21 +26,29 @@ public class ApiProductResource implements ProductResource {
 
     private final static Logger log = LoggerFactory.getLogger(ApiProductResource.class);
 
-    private String url;
+    private String urlTemplate;
     private RestTemplate restTemplate;
 
     @Autowired
-    public ApiProductResource(@Value("${products.resource.url}") String url, RestTemplate restTemplate) {
-        this.url = url;
+    public ApiProductResource(@Value("${products.resource.url}") String urlTemplate, RestTemplate restTemplate) {
+        this.urlTemplate = urlTemplate;
         this.restTemplate = restTemplate;
     }
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product> getProducts(String categoryId) {
+        log.debug("Loading products for category {}...", categoryId);
+        String url = urlTemplate.replace("CATEGORY_ID", categoryId);
 
         log.debug("Loading products from {}...", url);
 
-        ProductResponse productResponse = restTemplate.getForObject(url, ProductResponse.class);
+        ProductResponse productResponse = new ProductResponse();
+        try {
+            productResponse = restTemplate.getForObject(url, ProductResponse.class);
+        }
+        catch (RestClientException rce) {
+            log.error("Failed to retrieve products from {}", url);
+        }
 
         return Optional.ofNullable(Objects.requireNonNull(productResponse).getProducts()).orElse(Collections.emptyList());
     }

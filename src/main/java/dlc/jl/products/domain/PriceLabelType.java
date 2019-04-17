@@ -15,7 +15,7 @@ public enum PriceLabelType {
         }
         else {
             return allOf(PriceLabelType.class).stream()
-                    .filter(e -> e.toString().equals(name.toLowerCase())).findFirst()
+                    .filter(l -> l.toString().equals(name)).findFirst()
                     .orElse(ShowWasNow);
         }
     }

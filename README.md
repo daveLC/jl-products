@@ -10,7 +10,7 @@
 
 ## App
 
-This application contains a single endpoint for retriveing JL products that have price reductions applied to them.
+This application contains a single endpoint for retrieving JL products that have price reductions applied to them.
 
 To run the app, in the root project directory:
 
@@ -20,9 +20,9 @@ NOTE: As an alternative, run the following:
 
     > java -jar dist/jl-products-0.1.jar
 
-Then browse to the following endpoint for the products:
+Then browse to the following endpoint for the '600001506' products:
 
-    http://localhost:8080/products
+    http://localhost:8080/catelog/600001506/products/discount/prices/ShowWasNow
     
 An optional 'labelType' query parameter can be passed in to change the 'priceLabel' field
 this can be one of
@@ -35,3 +35,10 @@ this can be one of
 Actuator is added using the non-standard `/monitor` base path with the 'info', 'health', 'mappings' and 'logfile' endpoints active.
 
 The devtools dependency has been added that allows live reload of classes and static files by running `./gradlew build`
+
+#### Test the app
+    > ./gradlew check
+    
+#### Assemble the jar
+    > ./gradlew assemble
+      

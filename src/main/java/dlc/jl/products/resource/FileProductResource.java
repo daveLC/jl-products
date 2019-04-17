@@ -37,7 +37,7 @@ public class FileProductResource implements ProductResource {
     }
 
     @Override
-    public List<Product> getProducts() {
+    public List<Product> getProducts(String categoryId) {
         loadProducts();
         return Optional.ofNullable(productResponse.getProducts()).orElse(Collections.emptyList());
     }

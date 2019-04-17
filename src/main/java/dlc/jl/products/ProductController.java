@@ -5,15 +5,12 @@ import dlc.jl.products.domain.PriceLabelType;
 import dlc.jl.products.domain.Product;
 import dlc.jl.products.json.Views;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("products")
+@RequestMapping("catelog")
 public class ProductController {
 
     private ProductService productService;
@@ -23,10 +20,17 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping(name = "/", produces = "application/json")
+    @GetMapping(path = "/{categoryId}/products/discount/prices", produces = "application/json")
     @JsonView(Views.Basic.class)
-    public List<Product> list(@RequestParam(value = "labelType", defaultValue = "ShowWasNow") String labelType) {
-        return productService.getProducts(PriceLabelType.getByName(labelType));
+    public List<Product> list(@PathVariable("categoryId") String categoryId) {
+        return productService.getProducts(categoryId);
+    }
+
+    @GetMapping(path = "/{categoryId}/products/discount/prices/{labelType}", produces = "application/json")
+    @JsonView(Views.Basic.class)
+    public List<Product> list(@PathVariable("categoryId") String categoryId, @PathVariable("labelType") String labelType) {
+        PriceLabelType priceLabel = StringUtils.isEmpty(labelType) ? PriceLabelType.ShowWasNow : PriceLabelType.getByName(labelType);
+        return productService.getProducts(categoryId, priceLabel);
     }
 
 }

@@ -25,13 +25,13 @@ class ProductServiceSpec extends Specification {
         ]
 
         and: "a test product resource"
-        ProductResource testProductResource = { -> products }
+        ProductResource testProductResource = { c -> products }
 
         and: "the product service"
         ProductService productService = new ProductService(testProductResource)
 
         when: "retrieving them"
-        def result = productService.getProducts()
+        def result = productService.getProducts("1234")
 
         then: "it should return a list of products"
         result.size() == 3
@@ -58,13 +58,13 @@ class ProductServiceSpec extends Specification {
         ]
 
         and: "a test product resource"
-        ProductResource testProductResource = { -> products }
+        ProductResource testProductResource = { c -> products }
 
         and: "the product service"
         ProductService productService = new ProductService(testProductResource)
 
         when: "retrieving them"
-        def result = productService.getProducts()
+        def result = productService.getProducts("1234")
 
         then: "the results should contain the nowPrice"
         result[0].nowPrice == "£0.00"
@@ -81,7 +81,7 @@ class ProductServiceSpec extends Specification {
         ProductService productService = new ProductService(fileProductResource)
 
         when: "retrieving the products"
-        def result = productService.getProducts()
+        def result = productService.getProducts("1234")
 
         then: "each should contain a colorSwatch element"
         result.each { Product p ->
@@ -108,7 +108,7 @@ class ProductServiceSpec extends Specification {
         ProductService productService = new ProductService(fileProductResource)
 
         when: "retrieving the products"
-        def result = productService.getProducts()
+        def result = productService.getProducts("1234")
 
         then: "the ShowWasNow price is as expected"
         result[0].showWasNow == "Was £90, now £3.00"
@@ -136,7 +136,7 @@ class ProductServiceSpec extends Specification {
         ProductService productService = new ProductService(fileProductResource)
 
         when: "retrieving the products"
-        def result = productService.getProducts(priceLabel)
+        def result = productService.getProducts("1234", priceLabel)
 
         then: "the price label is as expected"
         result[0].priceLabel == expected
@@ -166,7 +166,7 @@ class ProductServiceSpec extends Specification {
         ProductService productService = new ProductService(apiProductResource)
 
         when: "retrieving the products"
-        def result = productService.getProducts()
+        def result = productService.getProducts("1234")
 
         then: "it should return a list of products"
         result.size() == 3
