@@ -17,7 +17,6 @@ public class ProductService {
     private ProductResource productResource;
 
     @Autowired
-    @SuppressWarnings("")
     public ProductService(ProductResource productResource) {
         this.productResource = productResource;
     }

@@ -4,6 +4,7 @@ import dlc.jl.products.domain.Product;
 import dlc.jl.products.json.ProductResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
@@ -25,9 +26,12 @@ public class ApiProductResource implements ProductResource {
     private final static Logger log = LoggerFactory.getLogger(ApiProductResource.class);
 
     private String url;
+    private RestTemplate restTemplate;
 
-    public ApiProductResource(@Value("${products.resource.url}") String url) {
+    @Autowired
+    public ApiProductResource(@Value("${products.resource.url}") String url, RestTemplate restTemplate) {
         this.url = url;
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class ApiProductResource implements ProductResource {
 
         log.debug("Loading products from {}...", url);
 
-        ProductResponse productResponse = new RestTemplate().getForObject(url, ProductResponse.class);
+        ProductResponse productResponse = restTemplate.getForObject(url, ProductResponse.class);
 
         return Optional.ofNullable(Objects.requireNonNull(productResponse).getProducts()).orElse(Collections.emptyList());
     }

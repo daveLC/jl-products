@@ -4,8 +4,11 @@ import dlc.jl.products.domain.ColorSwatch
 import dlc.jl.products.domain.Price
 import dlc.jl.products.domain.PriceLabelType
 import dlc.jl.products.domain.Product
+import dlc.jl.products.json.ProductResponse
+import dlc.jl.products.resource.ApiProductResource
 import dlc.jl.products.resource.FileProductResource
 import dlc.jl.products.resource.ProductResource
+import org.springframework.web.client.RestTemplate
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -143,5 +146,37 @@ class ProductServiceSpec extends Specification {
         PriceLabelType.ShowWasNow           || "Was £90, now £3.00"
         PriceLabelType.ShowWasNowThen       || "Was £90, then £40, now £3.00"
         PriceLabelType.ShowPercDscount      || "97% off - now £3.00"
+    }
+
+    def "retrieving using ApiProductResource should return products"() {
+
+        given: "a mocked RestTemplate"
+        RestTemplate restTemplate = Mock()
+        restTemplate.getForObject(_,_) >>  new ProductResponse(products: [
+                Product.builder().productId("TEST-01").title("Test One Product").price(new Price(new BigDecimal(40), new BigDecimal(20))).build(),
+                Product.builder().productId("TEST-02").title("Test Two Product").price(new Price(null, new BigDecimal(20))).build(),
+                Product.builder().productId("TEST-03").title("Test Three Product").price(new Price(new BigDecimal(40), new BigDecimal(10))).build(),
+                Product.builder().productId("TEST-04").title("Test Four Product").price(new Price(new BigDecimal(40), new BigDecimal(30))).build(),
+        ])
+
+        and: "the products are read using an ApiProductResource"
+        ProductResource apiProductResource = new ApiProductResource("http://ww.url.com",restTemplate)
+
+        and: "the product service"
+        ProductService productService = new ProductService(apiProductResource)
+
+        when: "retrieving the products"
+        def result = productService.getProducts()
+
+        then: "it should return a list of products"
+        result.size() == 3
+
+        and: "it should only contain those with price reductions"
+        !result.any { it.getPriceReduction() <= 0 }
+
+        and: "it should be sorted to show the highest price reduction first"
+        result[0].getPriceReduction() == new BigDecimal(30)
+        result[1].getPriceReduction() == new BigDecimal(20)
+        result[2].getPriceReduction() == new BigDecimal(10)
     }
 }
