@@ -24,6 +24,13 @@ public class Price {
         this.now = now;
     }
 
+    public Price(BigDecimal was, BigDecimal now, BigDecimal then1, BigDecimal then2) {
+        this.was = was;
+        this.now = now;
+        this.then1 = then1;
+        this.then2 = then2;
+    }
+
     @JsonProperty("now")
     private void nowObjectChecker(Object now) {
         if (now instanceof String) {

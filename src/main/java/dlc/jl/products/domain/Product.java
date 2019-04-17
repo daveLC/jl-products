@@ -101,14 +101,18 @@ public class Product {
     }
 
     private String toStringPrice(BigDecimal price) {
-        if (price.compareTo(BigDecimal.TEN) > 0) {
-            DecimalFormat df = new DecimalFormat("£###.##");
+        if (isIntegerValue(price) && price.compareTo(BigDecimal.TEN) >= 0) {
+            DecimalFormat df = new DecimalFormat("£###");
             return df.format(price);
         }
         else {
-            DecimalFormat df = new DecimalFormat("£0.00");
+            DecimalFormat df = new DecimalFormat("£##0.00");
             return df.format(price);
         }
+    }
+
+    private boolean isIntegerValue(BigDecimal decimal) {
+        return decimal.stripTrailingZeros().scale() <= 0;
     }
 
     public void determinePriceLabel(PriceLabelType priceLabelType) {

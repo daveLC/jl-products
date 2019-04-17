@@ -1,7 +1,7 @@
 {
   "products": [
     {
-      "productId": "3459039",
+      "productId": "1",
       "title": "Then Two",
       "price": {
         "was": "90.00",
@@ -32,6 +32,18 @@
         "then1": "",
         "then2": "",
         "now": "50.00",
+        "currency": "GBP"
+      },
+      "colorSwatches": []
+    },
+    {
+      "productId": "4",
+      "title": "Empties",
+      "price": {
+        "was": null,
+        "then1": null,
+        "then2": null,
+        "now": null,
         "currency": "GBP"
       },
       "colorSwatches": []
